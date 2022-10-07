@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-)o_#9)hgow+k0w4%hmerf(g&wx4ob2npa&0t4la^su7f4ih8k+
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '127.0.0.1',
     'to-do-list-backend-andyzhp.herokuapp.com',
 ]
@@ -40,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'items',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -124,3 +130,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:5173',
+]
