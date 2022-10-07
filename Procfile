@@ -1,1 +1,1 @@
-web: gunicorn to-do-list-backend-andyzhp.wsgi
+web: gunicorn main.wsgi
