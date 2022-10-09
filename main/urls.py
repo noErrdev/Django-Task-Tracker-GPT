@@ -6,7 +6,12 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/items/', include('items.urls')),
-    path('', TemplateView.as_view(template_name="index.html"))
+    path('', TemplateView.as_view(template_name="index.html")),
+    path('options/', TemplateView.as_view(template_name="index.html")),
+    path('signup/', TemplateView.as_view(template_name="index.html")),
+    path('home/', TemplateView.as_view(template_name="index.html")),
+    path('createItems/', TemplateView.as_view(template_name="index.html")),
+    path('individualItems/', TemplateView.as_view(template_name="index.html")),
 ]
 
 
