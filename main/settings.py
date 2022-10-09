@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'to-do-list-backend-andyzhp.herokuapp.com',
+    'to-do-list-andyzhp.herokuapp.com',
 ]
 
 
