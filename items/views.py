@@ -20,7 +20,7 @@ from django.http import Http404
 @permission_classes([permissions.IsAuthenticated])
 def functional_Items_view(request, pk=None, *arg, **kwargs):
   method = request.method
-  print(request)
+
   if method == "GET":
     if pk is not None:
       # single pk or (id) view
