@@ -71,7 +71,12 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
 | JWT Authentication | As a developer, I want the user to login/signup securly | Must have |
 
 
-
+## Features
+ 1. All
+ 2. Completed
+ 3. Incompleted
+ 4. Nearest Due
+ 5. Priority
 
 ## Technical Requirements
 
@@ -79,9 +84,9 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
 | Endpoint URL | Request type (GET, POST, etc.) | Description of the request/response |
 |--|--|--|
 | admin/ | GET/PUT/POST/DELETE | Django Default admin page |
-| api/signup/ | TBD | REST API to sign up user |
-| api/login/ | TBD|  REST API to login user |
-| api/token/refresh | TBD | REST API to refresh the access token |
+| api/accounts/signup/ | POST | REST API to sign up user |
+| api/accounts/login/ | POST |  REST API to login user |
+| api/accounts/token/refresh | POST | REST API to refresh the access token |
 | api/items/| GET | REST API to get All to-dos that belongs to a user |
 | api/items/| POST | REST API to create an to-do that belongs to a user |
 | api/items/:id/ | PUT/DELETE | REST API to edit a particular to-do |
