@@ -2,10 +2,10 @@
   <div class="create_items_body">
     <div class="create_items_container">
       <div class="create_items_title">
-        Create To-dos
+        Create a Task
       </div>
-      <form class="create_items_inputs" @submit="submitData">
-        
+
+      <div class="create_items_inputs">
         <div class="create-items_label_container">
           <label for="title">
             Title:
@@ -16,11 +16,12 @@
             name="title"
             v-model="formData.title"
             placeholder="title"
+            required
           />
         </div>
 
         <div class="create-items_label_container">
-          <label for="title">
+          <label for="content">
             Content:
           </label>
           <input
@@ -29,11 +30,12 @@
             name="content"
             v-model="formData.content"
             placeholder="content"
+            required
           />
         </div>
 
         <div class="create-items_label_container">
-          <label>
+          <label for="dueDate">
             Due Date:
           </label>
           <input 
@@ -42,11 +44,37 @@
             name="dueDate"
             v-model="formData.dueDate"
             placeholder="dueDate"
+            required
           />
         </div>
 
         <div class="create-items_label_container">
-          <label for="title">
+          <label for="priority">
+            Priority: 
+          </label>
+          <select name="priority" id="priority" v-model="formData.priority">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+
+        <div class="create-items_label_container">
+          <label for="progress">
+            Current Progress: {{formData.progress}}%
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            id="progress"
+            name="progress"
+            v-model="formData.progress"
+          />
+        </div>
+
+        <div class="create-items_label_container">
+          <label for="completed">
             Completed: 
           </label>
           <input
@@ -58,53 +86,44 @@
           />
         </div>
 
-        <button>
+        <button @click="submitData">
           Submit
         </button>
-      </form>
+        <br/>
+        <button @click="this.$router.push('/home')" style="background-color: red; color:white; font-size: 900;">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
-  import axios from 'axios';
+  import axiosInstance from '../utils/axiosInstance'
   export default {
     data(){
       return {
         formData: {
           title: '',
           content: '',
-          completed: false,
           dueDate: '',
-          userid: parseInt(localStorage.getItem('userid'))
+          completed: false,
+          priority: 'high',
+          progress: 0,
         }
       }
     },
     methods: {
       submitData(e){
         e.preventDefault();
-
-        if (this.formData['title'] === '') {
-          alert('Title can not be empty!')
-        } else if (this.formData['content'] === '') {
-          alert('content can not be empty!')
-        } else if (this.formData['dueDate'] === '') {
-          alert('dueDate can not be empty!')
-        } else {
-          let config = {
-            headers: {
-              Authorization: `Token ${localStorage.getItem('accessToken')}`
-            }
-          }
-          axios.post("https://to-do-list-andyzhp.herokuapp.com/api/items/",this.formData, config)
+        axiosInstance.post(`http://127.0.0.1:8000/api/items/`, this.formData)
           .then((response) => {
             this.$router.push('/home')
           })
           .catch((error) => {
             alert(error.message)
           });
-        }
       }
     }
   }
@@ -115,15 +134,15 @@
 <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
   .create_items_body{
-    height: 100vh;
     width: 100%;
-    background-color: rgba(173, 166, 166, 0.116);
+    min-height: 100vh;
+    background-color: rgb(226, 226, 226);
     display: flex;
     justify-content: center;
     font-family: 'Work Sans', sans-serif;
   }
   .create_items_container{
-    width: 90%;
+    width: 100%;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -138,7 +157,6 @@
     flex-direction: column;
     align-items: center;
     width: 70%;
-    height: 300px;
   }
   .create-items_label_container{
     width: 100%;
@@ -165,12 +183,20 @@
     width: 20px;
     height: 20px;
   }
+  #priority{
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+  }
   button{
     width: 200px;
-    height: 200px;
+    height: 250px;
     border: none;
     border-radius: 5px;
-    background-color: lightgrey;
+    background-color: lightgreen;
     cursor: pointer;
+    font-weight: 900;
   }
+  
 </style>

@@ -55,7 +55,7 @@
         }
       },
       submitForm(){
-        axios.post("https://to-do-list-andyzhp.herokuapp.com/api/items/newUser/",this.formData)
+        axios.post("http://127.0.0.1:8000/api/accounts/newUser/",this.formData)
         .then((response) => {
           this.$router.push('/')
         })

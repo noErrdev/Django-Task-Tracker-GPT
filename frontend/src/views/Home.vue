@@ -1,21 +1,28 @@
 <template>
   <div class="home_body">
-    <a href="/options">
-      <img src="https://img.icons8.com/external-basicons-solid-edtgraphics/344/external-Options-cellphone-ui-basicons-solid-edtgraphics-2.png" alt="options" class="options"/>
-    </a>
+    <img @click="openModal" src="https://img.icons8.com/external-basicons-solid-edtgraphics/344/external-Options-cellphone-ui-basicons-solid-edtgraphics-2.png" alt="options" class="options"/>
+    
+    <div class="modal" v-if="modal" @click="closeModal">
+      <LeftPanel :filter="filter" @update-filter="updateFilter"/>
+    </div>
+
     <div class="home_left_panel">
       <LeftPanel :filter="filter" @update-filter="updateFilter"/>
     </div>
-    <div class="home_main_content">
+    <div class="home_main_content" v-if="!modal">
       <HomeContent :filter="filter"/>
     </div>
   </div>
 </template>
 
+
+
 <script>
-  import LeftPanel from './Left_Panel.vue'
-  import HomeContent from './HomeContent.vue'
+  import LeftPanel from '../components/Left_Panel.vue'
+  import HomeContent from '../components/HomeContent.vue'
+
   export default {
+    name: 'MyComponent',
     components: {
       LeftPanel,
       HomeContent
@@ -23,24 +30,44 @@
     data() {
       return {
         filter: 'All',
+        modal: false,
       }
     },
     methods: {
+      openModal() {
+        this.modal = true
+      },
+      closeModal() {
+        this.modal = false
+      },
       updateFilter(filter) {
         this.filter = filter
-      }
-    }
+      },
+    },
   }
 </script>
 
-<!-- 1000px under should hide left panel -->
 
+
+
+
+
+
+
+
+<!-- 1000px under should hide left panel -->
 <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
   .home_body{
     display: flex;
     flex-direction: row;
     font-family: 'Work Sans', sans-serif;
+  }
+
+  .modal{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
   }
 
   @media screen and (min-width: 1000px) {

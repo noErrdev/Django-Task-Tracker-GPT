@@ -1,7 +1,7 @@
 <template>
   <div class="login_container">
     <div class="login_welcome">
-      Welcome to your To-do Lists!
+      Welcome to your Task Management App
     </div>
     <div class="login_form_body">
       <form
@@ -49,6 +49,7 @@
 
 <script>
   import axios from 'axios';
+
   export default {
     data(){
       return {
@@ -73,22 +74,24 @@
       demo_Login() {
         this.submitForm({
           username: 'demo',
-          password: 'demo11111',
+          password: 'demo',
         });
       },
-      submitForm(data){
+      submitForm(data) {
         if (!data) {
           data = this.formData
         }
-        axios.post("https://to-do-list-andyzhp.herokuapp.com/api/items/login/",data)
-        .then((response) => {
-          localStorage.setItem('userid',response.data.userid);
-          localStorage.setItem('accessToken',response.data.accessToken);
-          this.$router.push('/home')
-        })
-        .catch((error) => {
-          alert("Login Failed. Make sure you enter correct Username and Password!");
-        });
+
+        axios.post("http://127.0.0.1:8000/api/accounts/login/",data)
+          .then((response) => {
+            // on Success
+            localStorage.setItem('jwtTokens',JSON.stringify(response.data));
+            this.$router.push('/home');
+          })
+          .catch((error) => {
+            // on Error
+            alert("Login Failed. Make sure you enter correct Username and Password!");
+          });
       },
       redirect_to_Signup(){
         this.$router.push('/signup')
