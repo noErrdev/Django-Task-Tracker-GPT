@@ -117,7 +117,7 @@
     methods: {
       submitData(e){
         e.preventDefault();
-        axiosInstance.post(`http://127.0.0.1:8000/api/items/`, this.formData)
+        axiosInstance.post(`/api/items/`, this.formData)
           .then((response) => {
             this.$router.push('/home')
           })

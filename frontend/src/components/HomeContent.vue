@@ -125,7 +125,7 @@
       },
       handle_checks(data) {
         data.completed = !data.completed
-        axiosInstance.put(`http://127.0.0.1:8000/api/items/${data.id}/`, data)
+        axiosInstance.put(`/api/items/${data.id}/`, data)
           .then((response) => {
 
           })
@@ -134,7 +134,7 @@
           });
       },
       loadAll() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items/`)
+        axiosInstance.get(`/api/items/`)
           .then((response) => {
             this.listingData = response.data
           })
@@ -154,7 +154,7 @@
         return arr
       },
       loadNearestDue() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items/`)
+        axiosInstance.get(`/api/items/`)
           .then((response) => {
             this.listingData = this.BubbleSort(response.data);
           })
@@ -164,7 +164,7 @@
 
       },
       loadCompleted() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items?completed=True`)
+        axiosInstance.get(`/api/items?completed=True`)
           .then((response) => {
             this.listingData = response.data
           })
@@ -173,7 +173,7 @@
           });
       },
       loadIncompleted() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items?incompleted=True`)
+        axiosInstance.get(`/api/items?incompleted=True`)
           .then((response) => {
             this.listingData = response.data
           })
@@ -182,7 +182,7 @@
           });
       },
       loadHighPriority() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items?priority=high`)
+        axiosInstance.get(`/api/items?priority=high`)
           .then((response) => {
             this.listingData = response.data
           })
@@ -191,7 +191,7 @@
           });
       },
       loadMidPriority() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items?priority=medium`)
+        axiosInstance.get(`/api/items?priority=medium`)
           .then((response) => {
             this.listingData = response.data
           })
@@ -200,7 +200,7 @@
           });
       },
       loadLowPriority() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items?priority=low`)
+        axiosInstance.get(`/api/items?priority=low`)
           .then((response) => {
             this.listingData = response.data
           })

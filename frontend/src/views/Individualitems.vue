@@ -125,7 +125,7 @@
     methods: {
       updateData(e) {
         e.preventDefault();
-        axiosInstance.put(`http://127.0.0.1:8000/api/items/${this.$route.params.id}/`, this.formData)
+        axiosInstance.put(`/api/items/${this.$route.params.id}/`, this.formData)
           .then((response) => {
             this.$router.push('/home')
           })
@@ -135,7 +135,7 @@
       },
       deleteData(e) {
         e.preventDefault();
-        axiosInstance.delete(`http://127.0.0.1:8000/api/items/${this.$route.params.id}/`)
+        axiosInstance.delete(`/api/items/${this.$route.params.id}/`)
           .then((response) => {
             this.$router.push('/home')
           })
@@ -144,7 +144,7 @@
           });
       },
       getData() {
-        axiosInstance.get(`http://127.0.0.1:8000/api/items/${this.$route.params.id}/`)
+        axiosInstance.get(`/api/items/${this.$route.params.id}/`)
           .then((response) => {
             this.formData = response.data;
           })

@@ -2,7 +2,10 @@ import axios from 'axios'
 import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs'
 
-const baseURL = 'http://127.0.0.1:8000'
+// const baseURL = 'http://127.0.0.1:8000'
+const baseURL = 'https://task-management-andyzhp.herokuapp.com/'
+
+
 let jwtTokens = localStorage.getItem('jwtTokens') ? JSON.parse(localStorage.getItem('jwtTokens')) : null
 
 
