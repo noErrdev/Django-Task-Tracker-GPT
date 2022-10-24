@@ -1,14 +1,14 @@
 #  Design Docs
 
-# Task management App
+# Task Stack (Task management App)
 
 Author: Haopeng Zeng <br/>
 
-Date: 10/21/2022 (Updated) <br/>
+Date: 10/24/2022 (Updated) <br/>
 
 #  :man_technologist: Overview
 
-I have started this project with the purpose of learning how to developed a full stack application using Django and Django REST Framework as backend and Vue.js as frontend. This project initially was just a simple to-do-list, but later I decided to add extra more features and turn it into a more complex project called Task management application that supports much more features.
+I have started this project with the purpose of learning how to developed a full stack application using Django and Django REST Framework as backend and Vue.js as frontend. This project initially was just a simple to-do-list, but later I decided to add extra more features and turn it into a more complex project called Task management application that supports much features.
 
 This project allows people to create to-do lists. In order to use this project, users will needs to sign up for an account so that they can create to-do-lists that only belongs to them and no other users can view the to-do-lists. User also have the options to sign in as demo user; however, all demo users shares a single account and therefore to-do-lists created by demo user can be view by all other people who signed in as demo user. It is recommend to create your own account when using this application. Once a to-do-list has been created, user can delete it or update it (CRUD).
 
@@ -25,8 +25,8 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
  3. Track all To-do-lists
  4. Create To-do-lists
  5. Delete To-do-lists
- 6. Update-to-do-lists
- 7. User able to mark a to-do-item as complete / incomplete
+ 6. Update-To-do-lists
+ 7. User able to mark a to-do-item as Complete / Incomplete
  8. User able to set a deadline to a to-do-items
  9. Responsive web design
  10. User able to filter to-do-lists based on whether to-do-items are completed / incomplete
@@ -71,13 +71,6 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
 | JWT Authentication | As a developer, I want the user to login/signup securly | Must have |
 
 
-## Features
- 1. All
- 2. Completed
- 3. Incompleted
- 4. Nearest Due
- 5. Priority
-
 ## Technical Requirements
 
 ### Backend REST API Routes
@@ -89,7 +82,9 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
 | api/accounts/token/refresh | POST | REST API to refresh the access token |
 | api/items/| GET | REST API to get All to-dos that belongs to a user |
 | api/items/| POST | REST API to create an to-do that belongs to a user |
-| api/items/:id/ | PUT/DELETE | REST API to edit a particular to-do |
+| api/items/:id/ | GET | REST API to get a particular to-do |
+| api/items/:id/ | PUT | REST API to update a particular to-do |
+| api/items/:id/ | DELETE | REST API to delete a particular to-do |
 
 
 <br/>
@@ -100,10 +95,9 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
 |--|--|
 |  | Default page where user login their account |
 | signup/ | Page where user sign up their account |
-| options/ | Component/Page where user can filter to-dos |
 | home/ | Page where user can view their to-dos |
 | createItems/ | Page where user can create a to-do |
-| individualItems/:id | A detail page about a specific to-do |
+| indivi dualItems/:id | A detail page about a specific to-do |
 
 <br/>
 <br/>
@@ -166,6 +160,7 @@ I put a lot of effort in this Project and I hope that you could enjoy it.
 # Section 3: Key High-Level and Architectural Decisions
 
 ## Authentication Process
-
+JWT Token
 
 ## The Design Diagram
+<img src="./flow-chart.png" alt=""/>
