@@ -37,4 +37,12 @@ const router = createRouter({
   ]
 })
 
+router.beforeEach((to, from) => {
+  let isAuthenticated = localStorage.getItem('jwtTokens')
+  if (!isAuthenticated && to.name !== 'login') {
+    // redirect the user to the login page
+    return { name: 'login' }
+  }
+})
+
 export default router

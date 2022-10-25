@@ -16,7 +16,7 @@ const axiosInstance = axios.create({
 
 // Do something before a request is sent
 axiosInstance.interceptors.request.use(async req => {
-  jwtTokens = localStorage.getItem('jwtTokens') ? JSON.parse(localStorage.getItem('jwtTokens')) : null
+  jwtTokens = localStorage.getItem('jwtTokens') ? JSON.parse(localStorage.getItem('jwtTokens')) : null  
   req.headers.Authorization = `Bearer ${jwtTokens?.access}`
 
   const user = jwt_decode(jwtTokens.access)
