@@ -1,0 +1,24 @@
+# Python/Django files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development
+/.venv
+*.sqlite3
+*.env
+
+.env
+
+# Static files
+/staticfiles/
+/media/
+
+# Secret keys and settings
+secret_key.txt
+settings.py
+
+# Logs
+*.log
+logs/
+log/
