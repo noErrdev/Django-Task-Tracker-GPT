@@ -1,54 +1,62 @@
-# from django.shortcuts import render
-# from django.http import JsonResponse
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.response import Response
+from .serializers import UserSerializer
+from django.contrib.auth import authenticate
+from .tokens import CustomAccessToken
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-
-# from .models import Task
-# from .serializers import TaskSerializer
-
-# @api_view(['GET'])
-# def apiOverview(request):
-#     api_urls = {
-#         'List':'/task-list/',
-#         'Detail View':'/task-detail/<str:pk>/',
-#         'Create':'/task-create/',
-#         'Update':'/task-update/<str:pk>/',
-#         'Delete':'/task-delete/<str:pk>/',
-#         }
-#     return Response(api_urls)
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login_view(request):
+  username = request.data.get('username')
+  password = request.data.get('password')
+  user = authenticate(username=username, password=password)
+  if user is None:
+        return Response({'error': 'Invalid credentials'}, status=400)
   
-    
-# @api_view(['GET'])
-# def taskList(request):
-#     tasks = Task.objects.all()
-#     serializer = TaskSerializer(tasks, many=True)
-#     return Response(serializer.data)
-  
-  
-# @api_view(['GET'])
-# def taskDetail(request, pk):
-#     tasks = Task.objects.get(id=pk)
-#     serializer = TaskSerializer(tasks, many=False)
-#     return Response(serializer.data)
-  
-# @api_view(['POST'])
-# def taskCreate(request):
-#   serializer = TaskSerializer(data=request.data)
-#   if serializer.is_valid():
-#     serializer.save()
-#   return Response(serializer.data)
+  access_token = CustomAccessToken(user)
+  data = {'access_token': str(access_token)}
+  return Response(data, status=200)
 
-# @api_view(['POST'])
-# def taskUpdate(request, pk):
-#   task = Task.objects.get(id=pk)
-#   serializer = TaskSerializer(instance=task, data=request.data)
-#   if (serializer.is_valid()):
-#     serializer.save()
-#   return Response(serializer.data)
 
-# @api_view(['DELETE'])
-# def taskDelete(request, pk):
-#   task = Task.objects.get(id=pk)
-#   task.delete()
-#   return Response("Item successfully deleted!")
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def user_create(request):
+  # user needs a name, username, and password
+  serializer = UserSerializer(data=request.data)
+  if serializer.is_valid():
+    user = serializer.create(validated_data=request.data)
+    access_token = CustomAccessToken(user)
+    data = {'access_token': str(access_token)}
+    return Response(data, status=201)
+  return Response(serializer.errors, status=400)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def user_update(request):  
+  try:
+    user = User.objects.get(pk=request.user.id)
+  except User.DoesNotExist:
+    return Response(status=404)
+  
+  serializer = UserSerializer(user, data=request.data, partial=True)
+
+  if serializer.is_valid():
+    user = serializer.update(user, validated_data=request.data)
+    return Response(status=201)
+  return Response(serializer.errors, status=400)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def user_delete(request):
+  try:
+    user = User.objects.get(pk=request.user.id)
+  except User.DoesNotExist:
+    return Response(status=404)
+  
+  user.delete()
+  return Response(status=204)
