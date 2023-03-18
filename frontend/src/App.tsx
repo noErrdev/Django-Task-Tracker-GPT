@@ -4,19 +4,28 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={<NotFound />} />
+
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+
+            <Route element={<PrivateRoutes />}>
+              <Route path="/dashboard/*" element={<Dashboard />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
 }
 

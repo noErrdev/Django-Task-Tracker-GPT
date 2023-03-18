@@ -1,5 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { loginAPI } from "../../redux/api/userAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 import AuthContainer from "../../components/Auth/AuthContainer";
 import AuthTitle from "../../components/Auth/AuthTitle";
 import AuthInput from "../../components/Auth/AuthInput";
@@ -7,21 +10,37 @@ import OvalButton from "../../components/Button/OvalButton";
 import DividerWithText from "../../components/Divider/DividerWithText";
 import AuthNavText from "../../components/Auth/AuthNavText";
 import AuthNavLegal from "../../components/Auth/AuthNavLegal";
+import AuthErrorMessage from "../../components/Auth/AuthErrorMessage";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState("");
+  const dispatch = useDispatch<AppDispatch>();
+  const { status, error } = useSelector((state: any) => state.user);
+  const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  React.useEffect(() => {
+    console.log(status);
+    if (status === "succeeded") {
+      navigate("/dashboard");
+    }
+  }, [status]);
+
+  function submitLoginHandler(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    dispatch(loginAPI({ username, password }));
+  }
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center">
-      <AuthContainer>
+      <AuthContainer onSubmit={submitLoginHandler}>
         <AuthTitle text="Welcome back!" />
+        <AuthErrorMessage text={error} />
         <AuthInput
-          label="Email"
-          type="email"
-          id="login-email"
-          onChange={(e) => setEmail(e.target.value)}
+          label="Username"
+          type="text"
+          id="login-username"
+          onChange={(e) => setUsername(e.target.value)}
         />
         <AuthInput
           label="Password"
