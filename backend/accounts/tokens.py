@@ -1,7 +1,8 @@
-from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework_simplejwt.tokens import RefreshToken
 
-class CustomAccessToken(AccessToken):
+class CustomRefreshToken(RefreshToken):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.payload['user_id'] = str(user.id)
-        self.payload['username'] = user.username
+        self.payload['name'] = user.name
+

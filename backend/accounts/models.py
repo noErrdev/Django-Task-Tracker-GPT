@@ -20,6 +20,7 @@ class MyUserManager(BaseUserManager):
 
     user.set_password(password)
     user.save(using=self._db)
+    
     return user
   
   def create_superuser(self, username, name, password):
@@ -28,7 +29,7 @@ class MyUserManager(BaseUserManager):
       name,
       password,
     )
-    
+
     user.is_superuser = True
     user.save(using=self._db)
     return user

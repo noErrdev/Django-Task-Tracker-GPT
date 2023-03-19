@@ -1,24 +1,30 @@
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .serializers import UserSerializer
 from django.contrib.auth import authenticate
-from .tokens import CustomAccessToken
+from .tokens import CustomRefreshToken
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_view(request):
   username = request.data.get('username')
   password = request.data.get('password')
+
   user = authenticate(username=username, password=password)
+
   if user is None:
-        return Response({'error': 'Invalid credentials'}, status=400)
-  
-  access_token = CustomAccessToken(user)
-  data = {'access_token': str(access_token)}
+    return Response({'error': 'Incorrect username or password.'}, status=400)
+
+  refresh = CustomRefreshToken(user)
+  data = {'access_token': str(refresh.access_token), 'refresh_token': str(refresh)}
+
   return Response(data, status=200)
+
 
 
 @api_view(['POST'])
@@ -28,10 +34,15 @@ def user_create(request):
   serializer = UserSerializer(data=request.data)
   if serializer.is_valid():
     user = serializer.create(validated_data=request.data)
-    access_token = CustomAccessToken(user)
-    data = {'access_token': str(access_token)}
+    
+    refresh = CustomRefreshToken(user)
+    data = {'access_token': str(refresh.access_token), 'refresh_token': str(refresh)}
     return Response(data, status=201)
-  return Response(serializer.errors, status=400)
+
+  if 'username' in serializer.errors:
+    return Response({'error': 'Username already exists'}, status=400)
+
+  return Response({'error': 'Something went wrong'}, status=400)
 
 
 @api_view(['PUT'])
@@ -60,3 +71,5 @@ def user_delete(request):
   
   user.delete()
   return Response(status=204)
+
+
