@@ -3,6 +3,8 @@ import ModalBody from "../ModalBody";
 import ModalContainer from "../ModalContainer";
 import ModalTitle from "../ModalTitle";
 import ModalInput from "../ModalInput";
+import ModalSelectPriority from "../ModalSelectPriority";
+import ModalTextArea from "../ModalTextArea";
 import SquareButton from "../../Button/SquareButton";
 
 type AddTasksModalProps = {
@@ -10,7 +12,11 @@ type AddTasksModalProps = {
 };
 
 export default function AddTasksModal({ setOpenModal }: AddTasksModalProps) {
-  const [name, setName] = React.useState<string>("");
+  const [taskName, setTaskName] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
+  const [priority, setPriority] = React.useState<string>("high");
+  const [dueDate, setDueDate] = React.useState<string>("");
+  const [completed, setCompleted] = React.useState<boolean>(false);
 
   const handleCreateTask = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
@@ -23,11 +29,30 @@ export default function AddTasksModal({ setOpenModal }: AddTasksModalProps) {
         <ModalTitle text="Add Tasks" />
 
         <ModalInput
-          label="Name"
+          label="Task Name"
           type="text"
-          id="create-page-name"
-          onChange={(e) => setName(e.target.value)}
+          id="create-task-name"
+          onChange={(e) => setTaskName(e.target.value)}
         />
+
+        <ModalTextArea
+          label="Description"
+          id="create-task-description"
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <ModalSelectPriority
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+        />
+
+        {/* 
+        <ModalInput
+          label="Description"
+          type="text"
+          id="create-task-description"
+          onChange={(e) => setDueDate(e.target.value)}
+        /> */}
 
         <div className="mt-3 flex w-full justify-end ">
           <SquareButton

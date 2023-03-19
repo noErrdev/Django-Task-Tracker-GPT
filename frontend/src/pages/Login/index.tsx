@@ -11,6 +11,7 @@ import DividerWithText from "../../components/Divider/DividerWithText";
 import AuthNavText from "../../components/Auth/AuthNavText";
 import AuthNavLegal from "../../components/Auth/AuthNavLegal";
 import AuthErrorMessage from "../../components/Auth/AuthErrorMessage";
+import { clearStatusAndError } from "../../redux/slices/userSlice";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,7 +21,10 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
 
   React.useEffect(() => {
-    console.log(status);
+    dispatch(clearStatusAndError());
+  }, []);
+
+  React.useEffect(() => {
     if (status === "succeeded") {
       navigate("/dashboard");
     }

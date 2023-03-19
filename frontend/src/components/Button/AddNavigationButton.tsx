@@ -2,7 +2,7 @@ import AddIcon from "../../assets/add.png";
 
 type AddNavigationButtonProps = {
   text: String;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 export default function AddNavigationButton({

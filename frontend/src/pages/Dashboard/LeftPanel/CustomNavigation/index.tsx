@@ -1,13 +1,37 @@
 import React from "react";
 import AddNavigationButton from "../../../../components/Button/AddNavigationButton";
-import AddNavigationModal from "../../../../components/Modal/AddNavigationModal";
+import axiosInstance from "../../../../utils/axiosInstance";
+import NavigationItem from "../NavigationItem";
+import { useLocation } from "react-router-dom";
 
 export default function CustomNavigation() {
-  const [openModal, setOpenModal] = React.useState(false);
+  const [pages, setPages] = React.useState<any[]>([]);
+  let location = useLocation();
+
+  function addNewPage(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
+    axiosInstance.post("/api/pages/create_page/", {}).then((res) => {
+      setPages((prev) => [...prev, res.data]);
+    });
+  }
+
+  React.useEffect(() => {
+    axiosInstance.get("/api/pages/all_page/").then((res) => {
+      setPages(res.data);
+    });
+  }, []);
+
   return (
     <div>
-      <AddNavigationButton text="Add" onClick={() => setOpenModal(true)} />
-      {openModal && <AddNavigationModal setOpenModal={setOpenModal} />}
+      {pages.map((page) => (
+        <NavigationItem
+          key={page.id}
+          url={page.id}
+          text={page.name}
+          isActive={location.pathname.includes(page.id.toString())}
+        />
+      ))}
+      <AddNavigationButton text="Add" onClick={addNewPage} />
     </div>
   );
 }

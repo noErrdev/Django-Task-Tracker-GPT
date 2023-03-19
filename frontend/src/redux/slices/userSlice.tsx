@@ -2,13 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginAPI, signupAPI } from "../api/userAPI";
 
 export interface UserState {
-  userToken: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
 
 const initialState: UserState = {
-  userToken: null,
+  accessToken: localStorage.getItem("accessToken")
+    ? localStorage.getItem("accessToken")
+    : null,
+  refreshToken: localStorage.getItem("refreshToken")
+    ? localStorage.getItem("refreshToken")
+    : null,
   status: "idle",
   error: null,
 };
@@ -16,39 +22,62 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    updateNewToken: (state, action) => {
+      const { access_token, refresh_token } = action.payload;
+      state.accessToken = access_token;
+      state.refreshToken = refresh_token;
+      localStorage.setItem("accessToken", access_token);
+      localStorage.setItem("refreshToken", refresh_token);
+    },
+    clearStatusAndError: (state) => {
+      state.status = "idle";
+      state.error = null;
+    },
+    userLogout: (state) => {
+      state.accessToken = null;
+      state.refreshToken = null;
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(signupAPI.pending, (state, action) => {
+      .addCase(signupAPI.pending, (state) => {
         state.status = "loading";
       })
       .addCase(signupAPI.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.userToken = action.payload["access_token"];
-        localStorage.setItem("userToken", action.payload["access_token"]);
+        const { access_token, refresh_token } = action.payload;
+        state.accessToken = access_token;
+        state.refreshToken = refresh_token;
+        localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("refreshToken", refresh_token);
       })
       .addCase(signupAPI.rejected, (state, action: any) => {
         state.status = "failed";
         state.error = action.payload.error || "Something went wrong";
-        state.userToken = null;
       })
 
-      .addCase(loginAPI.pending, (state, action) => {
+      .addCase(loginAPI.pending, (state) => {
         state.status = "loading";
       })
       .addCase(loginAPI.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.userToken = action.payload["access_token"];
-        localStorage.setItem("userToken", action.payload["access_token"]);
+        const { access_token, refresh_token } = action.payload;
+        state.accessToken = access_token;
+        state.refreshToken = refresh_token;
+        localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("refreshToken", refresh_token);
       })
       .addCase(loginAPI.rejected, (state, action: any) => {
         state.status = "failed";
         state.error = action.payload.error || "Something went wrong";
-        state.userToken = null;
       });
   },
 });
 
-// export const { login } = userSlice.actions;
+export const { userLogout, clearStatusAndError, updateNewToken } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,6 +7,9 @@ import NotFound from "./pages/NotFound";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import PublicRoutes from "./utils/PublicRoutes";
+import { injectStore } from "./utils/axiosInstance";
+injectStore(store);
 
 function App() {
   return (
@@ -15,10 +18,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="*" element={<NotFound />} />
-
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-
+            <Route element={<PublicRoutes />}>
+              <Route path="/" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Route>
             <Route element={<PrivateRoutes />}>
               <Route path="/dashboard/*" element={<Dashboard />} />
             </Route>

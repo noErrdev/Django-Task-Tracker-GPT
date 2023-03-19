@@ -10,6 +10,7 @@ import OvalButton from "../../components/Button/OvalButton";
 import AuthNavText from "../../components/Auth/AuthNavText";
 import AuthNavLegal from "../../components/Auth/AuthNavLegal";
 import AuthErrorMessage from "../../components/Auth/AuthErrorMessage";
+import { clearStatusAndError } from "../../redux/slices/userSlice";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ export default function Signup() {
   const [errorMessage, setErrorMessage] = React.useState(
     "This is a demo website. Feels free to use a fake email address."
   );
+
+  React.useEffect(() => {
+    dispatch(clearStatusAndError());
+  }, []);
 
   React.useEffect(() => {
     if (status === "succeeded") {

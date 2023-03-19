@@ -5,13 +5,11 @@ import ModalTitle from "../ModalTitle";
 import ModalInput from "../ModalInput";
 import SquareButton from "../../Button/SquareButton";
 
-type AddNavigationModalProps = {
+type AddPageModalProps = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function AddNavigationModal({
-  setOpenModal,
-}: AddNavigationModalProps) {
+export default function AddPageModal({ setOpenModal }: AddPageModalProps) {
   const [name, setName] = React.useState<string>("");
 
   function handleCreatePage(e: React.MouseEvent<HTMLButtonElement>): void {

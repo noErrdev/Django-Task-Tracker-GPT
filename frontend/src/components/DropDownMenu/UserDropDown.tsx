@@ -1,13 +1,18 @@
 import LogoutIcon from "../../assets/logout.png";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../redux/slices/userSlice";
 
 type UserDropDownProps = {
   isOpen: boolean;
 };
 
 export default function UserDropDown({ isOpen }: UserDropDownProps) {
+  const dispatch = useDispatch();
+
   function userLogoutHandler() {
-    console.log("userLogoutHandler");
+    dispatch(userLogout());
   }
+
   return (
     <div
       className={`absolute right-0 top-8 z-20 rounded-lg border bg-white shadow-lg transition duration-200 ease-in-out
