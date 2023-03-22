@@ -15,7 +15,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('MODE') == "development"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "task-tracker-api.up.railway.app"
+]
 
 AUTH_USER_MODEL = "accounts.MyUser"
 
@@ -51,8 +53,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    # "http://localhost:5173",
+    # "http://127.0.0.1:5173",
+    # "https://task-tracker-api.up.railway.app",
+    "https://task-tracker-tool.netlify.app",
 ]
 
 ROOT_URLCONF = 'base.urls'
