@@ -8,43 +8,64 @@ import ModalTextArea from "../ModalTextArea";
 import SquareButton from "../../Button/SquareButton";
 import axiosInstance from "../../../utils/axiosInstance";
 
-type AddTasksModalProps = {
+type EditTaskModalProps = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setTasks: React.Dispatch<React.SetStateAction<any>>;
+  task: {
+    id: string;
+    name: string;
+    description: string;
+    priority: string;
+    due: string;
+  };
 };
 
-export default function AddTasksModal({
+export default function EditTaskModal({
   setOpenModal,
   setTasks,
-}: AddTasksModalProps) {
-  const [taskName, setTaskName] = React.useState<string>("");
-  const [description, setDescription] = React.useState<string>("");
-  const [priority, setPriority] = React.useState<string>("high");
-  const [dueDate, setDueDate] = React.useState<string>("");
+  task,
+}: EditTaskModalProps) {
+  const [taskName, setTaskName] = React.useState<string>(task.name);
+  const [priority, setPriority] = React.useState<string>(task.priority);
+  const [dueDate, setDueDate] = React.useState<string>(task.due);
+  const [description, setDescription] = React.useState<string>(
+    task.description
+  );
 
-  const handleCreateTask = (e: React.FormEvent): void => {
+  const handleUpdateTask = (e: React.FormEvent): void => {
     e.preventDefault();
     axiosInstance
-      .post("/api/tasks/create-task/", {
+      .put(`/api/tasks/update-task/${task.id}/`, {
         name: taskName,
         description: description,
         priority: priority,
         due: dueDate,
       })
       .then((res) => {
-        setTasks((prev: any) => [...prev, res.data]);
+        setTasks((prev: any) => {
+          const newTasks = prev.map((task: any) => {
+            if (task.id === res.data.id) {
+              task.name = res.data.name;
+              task.description = res.data.description;
+              task.priority = res.data.priority;
+              task.due = res.data.due;
+            }
+            return task;
+          });
+          return newTasks;
+        });
         setOpenModal(false);
       });
   };
 
   return (
     <ModalBody>
-      <ModalContainer onSubmit={handleCreateTask}>
-        <ModalTitle text="Add Task" />
+      <ModalContainer onSubmit={handleUpdateTask}>
+        <ModalTitle text="Edit Task" />
         <ModalInput
           label="Task Name"
           type="text"
-          id="create-task-name"
+          id="edit-task-name"
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
           isRequired={true}
@@ -52,7 +73,7 @@ export default function AddTasksModal({
 
         <ModalTextArea
           label="Description"
-          id="create-task-description"
+          id="edit-task-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -60,8 +81,8 @@ export default function AddTasksModal({
         <ModalInput
           label="Due Date"
           type="date"
-          id="create-task-due"
-          value={dueDate}
+          id="edit-task-due"
+          value={dueDate.split("T")[0]}
           onChange={(e) => setDueDate(e.target.value)}
           isRequired={true}
         />
@@ -71,7 +92,7 @@ export default function AddTasksModal({
           onChange={(e) => setPriority(e.target.value)}
         />
 
-        <div className="mt-3 flex w-full justify-end ">
+        <div className="mt-3 flex w-full justify-end">
           <SquareButton
             className="mx-1"
             variant="tertiary"
@@ -82,11 +103,11 @@ export default function AddTasksModal({
           </SquareButton>
           <SquareButton
             className="mx-1"
-            variant="secondary"
+            variant="primary"
             size="fit"
             type="submit"
           >
-            Create
+            Update
           </SquareButton>
         </div>
       </ModalContainer>

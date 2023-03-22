@@ -13,7 +13,7 @@ export default function MainNavigation() {
     <div>
       <NavigationItem
         imgSrc={InboxIcon}
-        url="all"
+        url=""
         text="All"
         isActive={location.pathname.includes("all")}
       />
@@ -29,12 +29,12 @@ export default function MainNavigation() {
         text="Upcoming"
         isActive={location.pathname.includes("upcoming")}
       />
-      <NavigationItem
+      {/* <NavigationItem
         imgSrc={LabelIcon}
         url="labels"
         text="Labels"
         isActive={location.pathname.includes("labels")}
-      />
+      /> */}
     </div>
   );
 }

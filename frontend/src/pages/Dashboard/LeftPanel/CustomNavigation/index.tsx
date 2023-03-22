@@ -3,6 +3,7 @@ import AddNavigationButton from "../../../../components/Button/AddNavigationButt
 import axiosInstance from "../../../../utils/axiosInstance";
 import NavigationItem from "../NavigationItem";
 import { useLocation } from "react-router-dom";
+import DocumentIcon from "../../../../assets/document.png";
 
 export default function CustomNavigation() {
   const [pages, setPages] = React.useState<any[]>([]);
@@ -27,7 +28,9 @@ export default function CustomNavigation() {
         <NavigationItem
           key={page.id}
           url={page.id}
-          text={page.name}
+          text={page.title}
+          imgSrc={DocumentIcon}
+          imgSize="sm"
           isActive={location.pathname.includes(page.id.toString())}
         />
       ))}

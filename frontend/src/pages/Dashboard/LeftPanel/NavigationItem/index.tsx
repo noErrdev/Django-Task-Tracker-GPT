@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
 type NavigationItemProps = {
-  url: String;
-  text: String;
-  isActive?: Boolean;
-  imgSrc?: String;
+  url: string;
+  text: string;
+  isActive?: boolean;
+  imgSrc?: string;
+  imgSize: string;
+};
+
+const imgSizeTable: any = {
+  base: "mr-2 h-5 w-5",
+  sm: "h-4 w-4 mr-2",
 };
 
 export default function NavigationItem({
@@ -12,8 +18,10 @@ export default function NavigationItem({
   text,
   isActive = false,
   imgSrc,
+  imgSize = "base",
 }: NavigationItemProps) {
   const navigate = useNavigate();
+
   return (
     <div
       className={`${isActive ? "bg-gray-200" : ""}
@@ -21,10 +29,14 @@ export default function NavigationItem({
       onClick={() => navigate("/dashboard/" + url)}
     >
       {imgSrc && (
-        <img className="mr-2 h-5 w-5" src={imgSrc.toString()} alt="" />
+        <img
+          className={`${imgSizeTable[imgSize]}`}
+          src={imgSrc.toString()}
+          alt=""
+        />
       )}
 
-      <h1>{text}</h1>
+      <h1 className="truncate">{text}</h1>
     </div>
   );
 }

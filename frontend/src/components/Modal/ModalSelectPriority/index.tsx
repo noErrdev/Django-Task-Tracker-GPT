@@ -10,9 +10,12 @@ export default function ModalSelectPriority({
   onChange,
 }: ModalSelectPriorityProps) {
   return (
-    <div className="mb-2">
+    <div className="my-1 flex w-full flex-col">
+      <label className="text-sm font-semibold" htmlFor="modal-select-priority">
+        Priority
+      </label>
       <select
-        className={`mt-1 h-8 rounded-md border px-1 text-xs outline-none
+        className={`mt-1 h-8 rounded-md border px-1 text-sm outline-none
           ${
             value === "high"
               ? "border-red-500 text-red-500"
@@ -38,11 +41,3 @@ export default function ModalSelectPriority({
     </div>
   );
 }
-
-// ${
-//   value === "high"
-//     ? "border-red-300"
-//     : value === "medium"
-//     ? "border-yellow-400"
-//     : "text-green-400"
-// }
