@@ -30,6 +30,10 @@ export default function Login() {
     }
   }, [status]);
 
+  function demoLoginHandler() {
+    dispatch(loginAPI({ username: "demo", password: "11111111" }));
+  }
+
   function submitLoginHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(loginAPI({ username, password }));
@@ -56,7 +60,7 @@ export default function Login() {
           Login
         </OvalButton>
         <DividerWithText text="OR" />
-        <OvalButton variant="tertiary" type="button">
+        <OvalButton variant="tertiary" type="button" onClick={demoLoginHandler}>
           Continue with demo
         </OvalButton>
         <AuthNavText

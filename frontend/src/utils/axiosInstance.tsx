@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
 
 // export const baseURL = "http://localhost:8000";
-export const baseURL = "task-tracker-api.up.railway.app";
+export const baseURL = "https://task-tracker-api.up.railway.app";
 
 let store: any = null;
 
