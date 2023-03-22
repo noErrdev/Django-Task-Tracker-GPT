@@ -1,7 +1,10 @@
 import React from "react";
 import DeleteIcon from "../../assets/delete.png";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteCustomPage } from "../../utils/api";
+import { deletePage } from "../../redux/slices/customPageSlice";
+
 type DeletePageDropDownProp = {
   isOpen: boolean;
   pageId: string;
@@ -12,10 +15,12 @@ export default function DeletePageDropDown({
   pageId,
 }: DeletePageDropDownProp) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function handleDelete(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.preventDefault();
     await deleteCustomPage(pageId);
+    dispatch(deletePage({ id: pageId }));
     navigate("/dashboard/");
   }
 

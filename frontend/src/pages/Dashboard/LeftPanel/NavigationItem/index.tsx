@@ -5,7 +5,7 @@ type NavigationItemProps = {
   text: string;
   isActive?: boolean;
   imgSrc?: string;
-  imgSize: string;
+  imgSize?: string;
 };
 
 const imgSizeTable: any = {

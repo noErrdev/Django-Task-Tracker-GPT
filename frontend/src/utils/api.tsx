@@ -53,3 +53,12 @@ export async function updateEditableBlock(
 export async function deleteCustomPage(pageId: string) {
   await axiosInstance.delete(`api/pages/delete_page/${pageId}/`);
 }
+
+type Message = {
+  prompt: string;
+};
+
+export async function sendChatMessageAPI(message: Message) {
+  const { data } = await axiosInstance.post(`api/chats/chatgpt/`, message);
+  return data;
+}

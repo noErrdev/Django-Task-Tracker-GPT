@@ -1,30 +1,32 @@
 import React from "react";
 import AddNavigationButton from "../../../../components/Button/AddNavigationButton";
-import axiosInstance from "../../../../utils/axiosInstance";
 import NavigationItem from "../NavigationItem";
 import { useLocation } from "react-router-dom";
 import DocumentIcon from "../../../../assets/document.png";
+import {
+  getCustomPageAPI,
+  createCustomPageAPI,
+} from "../../../../redux/api/customPageAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../../redux/store";
 
 export default function CustomNavigation() {
-  const [pages, setPages] = React.useState<any[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
   let location = useLocation();
+  const pages = useSelector((state: any) => state.customPage.customPages);
 
   function addNewPage(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    axiosInstance.post("/api/pages/create_page/", {}).then((res) => {
-      setPages((prev) => [...prev, res.data]);
-    });
+    dispatch(createCustomPageAPI());
   }
 
   React.useEffect(() => {
-    axiosInstance.get("/api/pages/all_page/").then((res) => {
-      setPages(res.data);
-    });
+    dispatch(getCustomPageAPI());
   }, []);
 
   return (
     <div>
-      {pages.map((page) => (
+      {pages.map((page: any) => (
         <NavigationItem
           key={page.id}
           url={page.id}

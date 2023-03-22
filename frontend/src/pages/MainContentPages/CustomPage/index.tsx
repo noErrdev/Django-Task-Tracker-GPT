@@ -10,6 +10,8 @@ import { updatePageNameAPI, createEditableBlock } from "../../../utils/api";
 import LoadingModal from "../../../components/Modal/LoadingModal";
 import HorizMenuIcon from "../../../assets/horiz-menu.png";
 import DeletePageDropDown from "../../../components/DropDownMenu/DeletePageDropDown";
+import { useDispatch } from "react-redux";
+import { updatePageName } from "../../../redux/slices/customPageSlice";
 
 interface BlockType {
   id: string;
@@ -20,6 +22,8 @@ interface BlockType {
 
 export default function CustomPage() {
   let location = useLocation();
+  const dispatch = useDispatch();
+
   const selfText = React.useRef<string>("");
   const typingTimerRef = React.useRef<any>(null);
   const pageId = location.pathname.split("/")[2];
@@ -58,6 +62,7 @@ export default function CustomPage() {
     if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
     typingTimerRef.current = setTimeout(() => {
       updatePageNameAPI(selfText.current, pageId);
+      dispatch(updatePageName({ id: pageId, title: selfText.current }));
     }, 1000);
   };
 
