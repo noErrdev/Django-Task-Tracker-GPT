@@ -4,15 +4,11 @@ Task Tracker is a simple and efficient task management app designed to help user
 
 Project is live on: https://task-tracker-tool.netlify.app
 
-## Documentations
-
-Design Documentations can be found <a href="./documentations">here</a>.
-
 ## Screenshots
 
+<img src="./documentations/screenshots/dashboard.JPG" width="100%" />
+<img src="./documentations/screenshots/chat.JPG" width="100%" />
 <img src="./documentations/screenshots/login.JPG" width="100%" />
-
-<img src="./documentations/screenshots/signup.JPG" width="100%" />
 
 ## Features
 

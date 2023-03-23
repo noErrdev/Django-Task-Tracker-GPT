@@ -16,6 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('MODE') == "development"
 
 ALLOWED_HOSTS = [
+    # "localhost",
     "task-tracker-api.up.railway.app"
 ]
 
