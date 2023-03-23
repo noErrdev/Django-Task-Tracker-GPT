@@ -9,12 +9,10 @@ export default function Dashboard() {
     <div className="min-h-screen w-full">
       <Header setOpenLeftPanel={setOpenLeftPanel} />
       <div className="flex">
-        <div
-          className={`z-50 h-screen lg:block
-            ${openLeftPanel ? "absolute top-0" : "hidden"}`}
-        >
-          <LeftPanel setOpenLeftPanel={setOpenLeftPanel} />
-        </div>
+        <LeftPanel
+          setOpenLeftPanel={setOpenLeftPanel}
+          openLeftPanel={openLeftPanel}
+        />
         <MainContent />
       </div>
     </div>

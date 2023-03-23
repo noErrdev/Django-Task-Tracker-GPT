@@ -26,7 +26,7 @@ export default function CommandDropDown({
 
   return (
     <div
-      className={`absolute left-0 top-10 z-20 rounded-lg border bg-white text-xs shadow-lg transition duration-200 ease-in-out
+      className={`absolute left-0 top-10 z-10 rounded-lg border bg-white text-xs shadow-lg transition duration-200 ease-in-out
       ${isOpen ? "block" : "hidden"} `}
     >
       <h1

@@ -69,7 +69,7 @@ export default function CustomPage() {
   return (
     <MainContent>
       <MainContentBody>
-        <div className="relative flex items-center justify-between">
+        <div className="relative flex items-center justify-between ">
           <ContentEditable
             html={selfText.current}
             onChange={handleChange}

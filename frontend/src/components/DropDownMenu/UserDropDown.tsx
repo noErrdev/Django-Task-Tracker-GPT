@@ -15,7 +15,7 @@ export default function UserDropDown({ isOpen }: UserDropDownProps) {
 
   return (
     <div
-      className={`absolute right-0 top-8 z-20 rounded-lg border bg-white shadow-lg transition duration-200 ease-in-out
+      className={`absolute right-0 top-8 rounded-lg border bg-white shadow-lg transition duration-200 ease-in-out
         ${isOpen ? "block" : "hidden"} `}
     >
       <div

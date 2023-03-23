@@ -26,7 +26,7 @@ export default function DeletePageDropDown({
 
   return (
     <div
-      className={`absolute right-2 top-10 z-20 rounded-lg border bg-white shadow-lg transition duration-200 ease-in-out
+      className={`absolute right-2 top-10 rounded-lg border bg-white shadow-lg transition duration-200 ease-in-out
       ${isOpen ? "block" : "hidden"} `}
     >
       <div

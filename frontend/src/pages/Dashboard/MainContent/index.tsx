@@ -8,7 +8,7 @@ import ChatGPTPage from "../../MainContentPages/ChatGPTPage";
 
 export default function MainContent() {
   return (
-    <div className="z-0 h-screen flex-1 overflow-auto bg-white">
+    <div className="z-10 h-screen flex-1 overflow-auto bg-white">
       <Routes>
         <Route path="/" element={<AllPage />} />
         <Route path="/today" element={<TodayPage />} />
