@@ -69,7 +69,7 @@ export default function Signup() {
         <AuthNavText
           text=""
           navText="Already have an Account?"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/login")}
         />
         <AuthNavLegal isLogin={true} />
       </AuthContainer>

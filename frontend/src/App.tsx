@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
+import Landing from "./pages/Landing";
 import TermsOfSercices from "./pages/TermsOfServices";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
@@ -22,10 +23,13 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/legal" element={<TermsOfSercices />} />
+            <Route path="/" element={<Landing />} />
+
             <Route element={<PublicRoutes />}>
-              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Route>
+
             <Route element={<PrivateRoutes />}>
               <Route path="/dashboard/*" element={<Dashboard />} />
             </Route>

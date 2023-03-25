@@ -4,7 +4,7 @@ type OvalButtonProps = {
   className?: string;
   variant: "primary" | "secondary" | "tertiary";
   type?: "button" | "submit";
-  size?: "small" | "medium" | "large" | "full";
+  size?: "small" | "medium" | "large" | "full" | "fit";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void | (() => void);
   children: React.ReactNode;
 };

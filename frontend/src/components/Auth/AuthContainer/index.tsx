@@ -11,7 +11,7 @@ export default function AuthContainer({
 }: AuthContainerProps) {
   return (
     <form
-      className="shadow-full flex w-full max-w-lg flex-col items-center rounded-xl border p-24"
+      className="shadow-full mx-2 flex w-full max-w-lg flex-col items-center rounded-xl border p-12 md:p-24"
       onSubmit={onSubmit}
     >
       {children}
