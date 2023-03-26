@@ -1,6 +1,5 @@
-import React from "react";
 import PersonIcon from "../../assets/person-in-front-computer.png";
-import OvalButton from "../../components/Button/OvalButton";
+import SquareButton from "../../components/Button/SquareButton";
 import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
@@ -21,14 +20,14 @@ export default function Landing() {
         <h1 className=" ml-1 text-base xl:text-lg">
           Notes, tasks, & AI assitantnce
         </h1>
-        <OvalButton
-          variant="tertiary"
-          size="fit"
+        <SquareButton
+          variant="primary"
+          size="medium"
           className=" mt-6 px-5"
           onClick={() => navigate("/login")}
         >
           Get Started
-        </OvalButton>
+        </SquareButton>
       </div>
     </div>
   );
